@@ -57,12 +57,12 @@ class CrudusersController extends Controller
             'password' => 'required|min:8'
         ]);
 
-        // //buat var baru (cara1)
-        // $user = new Crudusers();
-        // $user->name = $request->name;
-        // $user->email = $request->email;
-        // $user->password = $request->password;
-        // $user->save();
+        //buat var baru (cara1)
+        $user = new Crudusers();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = $request->password;
+        $user->save();
 
         // // buat var baru (cara2)
         // Crudusers::create([
@@ -72,7 +72,7 @@ class CrudusersController extends Controller
         // ]);
 
         // // atau bisa jg begini
-            Crudusers::create($request->all());
+        // Crudusers::create($request->all());
 
         return Redirect::route('user.index')->with('success', 'New data user created.');
     }
@@ -85,11 +85,24 @@ class CrudusersController extends Controller
     }
 
      //menampilkan form edit untuk edit data 
-     public function edit()
+     public function edit($id) 
      {
          $title = 'edit Data User';
+         $user = Crudusers::find($id);
          return Inertia::render('CrudUsers/Edit', [
-             'title' => $title
+             'title' => $title,
+             'user' => $user
          ]);
+     }
+
+     public function update(Request $request, $id) 
+     {
+        $user = Crudusers::find($id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = $request->password;
+        $user->save();
+        
+        return Redirect::route('user.index')->with('success', 'data user updated.');
      }
 }

@@ -152,7 +152,9 @@ Route::post('crudusers', [CrudusersController::class, 'store']); //mengirimkan d
 Route::get('crudusers/create', [CrudusersController::class, 'create']); //membuat data baru
 // Route::get('/crudusers/{id}/detail', [CrudusersController::class, 'show']); // (cara 1 cont. di controller) memunculkan data agar bisa menampilkan data setiap id untuk detailnya
 Route::get('/crudusers/{user}/detail', [CrudusersController::class, 'show']); // (cara 2 cont. di controller) memunculkan data agar bisa menampilkan data setiap id untuk detailnya
-Route::get('/crudusers/{user}/edit', [CrudusersController::class, 'edit']);//mengedit data
+
+Route::put('/crudusers/{id}/detail', [CrudusersController::class, 'update']); //untuk mengupdate data
+Route::get('/crudusers/{id}/edit', [CrudusersController::class, 'edit']);//mengedit data
 
 Route::delete('/crudusers/{user}', [CrudusersController::class, 'destroy']); //menghapus data
 
