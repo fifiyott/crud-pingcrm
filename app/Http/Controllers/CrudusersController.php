@@ -77,26 +77,20 @@ class CrudusersController extends Controller
         return Redirect::route('user.index')->with('success', 'New data user created.');
     }
 
-    public function destroy(Crudusers $user)
+    
+    //menampilkan form edit untuk edit data 
+    public function edit($id) 
     {
-        $user -> delete();
-
-        return Redirect::route('user.index')->with('success', 'data deleted.');
+        $title = 'edit Data User';
+        $user = Crudusers::find($id);
+        return Inertia::render('CrudUsers/Edit', [
+            'title' => $title,
+            'user' => $user
+        ]);
     }
-
-     //menampilkan form edit untuk edit data 
-     public function edit($id) 
-     {
-         $title = 'edit Data User';
-         $user = Crudusers::find($id);
-         return Inertia::render('CrudUsers/Edit', [
-             'title' => $title,
-             'user' => $user
-         ]);
-     }
-
-     public function update(Request $request, $id) 
-     {
+    
+    public function update(Request $request, $id) 
+    {
         $user = Crudusers::find($id);
         $user->name = $request->name;
         $user->email = $request->email;
@@ -104,5 +98,13 @@ class CrudusersController extends Controller
         $user->save();
         
         return Redirect::route('user.index')->with('success', 'data user updated.');
-     }
+    }
+    
+    //delete data
+    public function destroy(Crudusers $user)
+    {
+        $user -> delete();
+    
+        return Redirect::route('user.index')->with('success', 'data deleted.');
+    }
 }
